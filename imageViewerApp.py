@@ -38,7 +38,7 @@ class Gallery(tk.Frame):
             self.exit_button = tk.Button(self, text="Exit Gallery", command=self.quit())
             self.exit_button.grid(row=1, column=0, columnspan=3, sticky=tk.W+tk.E+tk.N+tk.S)
         else:
-            self.my_label = tk.Label(image=self.image_list[0])
+            self.my_label = tk.Label(self, image=self.image_list[0])
             self.my_label.grid(row=0, column=0, columnspan=3, sticky=tk.W+tk.E+tk.N+tk.S)
 
         # Buttons for navigation
@@ -55,24 +55,25 @@ class Gallery(tk.Frame):
         self.my_label.grid_forget()  # Use this to get rid of previous image so that new image and old image don't overlap with each other
 
         # Create the space for the new image.
-        self.my_label = tk.Label(image=self.image_list[image_number-1])
+        self.my_label = tk.Label(self, image=self.image_list[image_number-1])
         self.my_label.grid(row=0, column=0, columnspan=3, sticky=tk.W+tk.E+tk.N+tk.S)
 
         # Updating buttons for navigation
         self.forward_button = tk.Button(self, text=">>", command=lambda: self.forward(image_number+1))
-        self.forward_button.grid(row=1, column=2, sticky=tk.W+tk.E+tk.N+tk.S)
-
-        self.back_button = tk.Button(self, text="<<", command=lambda: self.back(image_number-1))
-        self.back_button.grid(row=1, column=0, sticky=tk.W+tk.E+tk.N+tk.S)
 
         # 3 because I am testing with 3 images
         if image_number == 3:
             self.forward_button = tk.Button(self, text=">>", state=tk.DISABLED)
 
+        self.forward_button.grid(row=1, column=2, sticky=tk.W+tk.E+tk.N+tk.S)
+
+        self.back_button = tk.Button(self, text="<<", command=lambda: self.back(image_number-1))
+        self.back_button.grid(row=1, column=0, sticky=tk.W+tk.E+tk.N+tk.S)
+
     def back(self, image_number):
         self.my_label.grid_forget()
 
-        self.my_label = tk.Label(image=self.image_list[image_number - 1])
+        self.my_label = tk.Label(self, image=self.image_list[image_number - 1])
         self.my_label.grid(row=0, column=0, columnspan=3, sticky=tk.W+tk.E+tk.N+tk.S)
 
         # Updating buttons for navigation
